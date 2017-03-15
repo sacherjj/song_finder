@@ -26,15 +26,15 @@ class YoutubeDownloaderCaller(Component):
 
     @handler('youtube_download_complete')
     def youtube_complete(self, event, *args, **kwargs):
-        self.complete.append(event.value)
-        print(event.value)
-        if len(self.complete) > 3:
+        self.complete.append(args[0])
+        print(args[0])
+        if len(self.complete) > 2:
             self.stop()
 
 
 class TestYoutubeDownloader(TestCase):
     def test_download(self):
-        ydc = YoutubeDownloaderCaller(3)
+        ydc = YoutubeDownloaderCaller(rate_limit=0.1)
         ydc.run()
-        print('done')
+        # If we return, we have completed test successfully.
 
